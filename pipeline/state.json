@@ -1,0 +1,10 @@
+{
+  "current_phase": "IDLE",
+  "active_skill": null,
+  "last_cycle": null,
+  "last_research": null,
+  "last_publish": null,
+  "cycle_count": 0,
+  "rate_limit_hit": false,
+  "notes": "Initial state — first heartbeat will start at Phase 2 (Research)."
+}

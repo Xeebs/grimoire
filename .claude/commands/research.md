@@ -1,0 +1,1 @@
+Trigger a Grimoire research cycle. Scan GitHub, Hacker News, Reddit, and practitioner blogs for signals on AI workflow gaps in Finance, Legal, and Consulting. Score each signal (High/Medium/Low) and append findings to pipeline/queue.md. Skip any signals already present in the queue. Report a summary of new signals found.
