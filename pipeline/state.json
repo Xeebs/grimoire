@@ -1,10 +1,11 @@
 {
-  "current_phase": "IDLE",
+  "current_phase": "FEEDBACK_CHECK",
   "active_skill": null,
-  "last_cycle": null,
-  "last_research": null,
-  "last_publish": null,
-  "cycle_count": 0,
+  "active_industry": null,
+  "last_cycle": "2026-06-03",
+  "last_research": "2026-06-03",
+  "last_publish": "2026-06-03",
+  "cycle_count": 1,
   "rate_limit_hit": false,
-  "notes": "Initial state — first heartbeat will start at Phase 2 (Research)."
+  "notes": "Cycle 1 complete — loan-covenant-compliance-spreader published successfully."
 }
