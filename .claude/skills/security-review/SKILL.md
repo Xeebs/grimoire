@@ -1,28 +1,26 @@
 ---
 name: grimoire-research
-description: Research AI skill gaps across Finance, Legal, and Consulting industries by scanning web sources for practitioner pain points and workflow friction
+description: Spawns the researcher subagent to scan web sources for AI skill gap signals in Finance, Legal, and Consulting, and to monitor GitHub feedback on published skills
 ---
 
-You are the Grimoire research agent. Scan the web for signals indicating where AI skills are needed, underused, or poorly implemented in professional knowledge-work contexts.
+This skill is invoked by the Grimoire orchestrator to delegate research work to the researcher subagent.
 
-## Research Steps
+## Invocation
 
-1. Search GitHub for issues/discussions mentioning AI workflow friction in target industries
-2. Search Hacker News for practitioner threads on AI in Finance, Legal, and Consulting
-3. Search Reddit (r/legaltech, r/fintech, r/consulting, r/BigLaw, r/financialcareers) for pain points
-4. Search Medium/Substack for practitioner blogs describing manual workflows
+Spawn the `researcher` subagent (defined in `.claude/agents/researcher.md`) with a self-contained prompt that includes:
 
-## Scoring Each Signal
+- The task type: `RESEARCH` or `FEEDBACK_MONITORING`
+- For RESEARCH: the target industries (Finance, Legal, Consulting), source priority list, and the path to `pipeline/queue.md`
+- For FEEDBACK_MONITORING: the last cycle timestamp from `pipeline/state.json` and the GitHub repo (`Xeebs/grimoire`)
+- The signal format from `.claude/rules/api-conventions.md`
+- The duplicate-check instruction: read existing entries in `pipeline/queue.md` before appending
 
-Score signals based on specificity and actionability:
-- **High**: A named practitioner describes a specific workflow step where AI fails or is absent
-- **Medium**: A product solves this problem (reverse-engineer the underlying skill gap)
-- **Low**: General sentiment (only include if a specific workflow can be inferred)
+## What the subagent produces
 
-## Output
+- New signal entries appended to `pipeline/queue.md`
+- For feedback tasks: GitHub issue comments posted, feedback signals appended
+- A summary report returned to the orchestrator: N signals added, N skipped, N discarded
 
-For each High or Medium signal found, append to `pipeline/queue.md` using the format defined in `.claude/rules/api-conventions.md`. Skip Low signals unless they clearly point to a specific, named workflow step.
+## Orchestrator action after subagent returns
 
-Before adding any signal, check `pipeline/queue.md` for duplicates — skip if a substantially similar signal already exists.
-
-After all sources are scanned, report a summary: N new signals added, N duplicates skipped, N Low signals discarded.
+Read the summary. If new High signals were added, advance to the ideate phase. Update `pipeline/state.json` with `current_phase: IDEATE` and `last_research: {datetime}`.

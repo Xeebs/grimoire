@@ -1,29 +1,36 @@
 ---
 name: grimoire-ideate
-description: Design a complete, novel AI skill based on a researched signal from the Grimoire pipeline queue
+description: Spawns the skill-designer subagent to design a complete novel skill from the top-priority signal in the pipeline queue
 ---
 
-You are the Grimoire skill designer. Given a High-strength signal from `pipeline/queue.md`, design a complete, production-quality skill.
+This skill is invoked by the Grimoire orchestrator to delegate skill design to the skill-designer subagent.
 
-## Design Steps
+## Invocation
 
-1. **Select signal**: Pick the top unworked High-strength signal from `pipeline/queue.md`. If none exist, take the top Medium signal.
+Read the top unworked High-strength signal from `pipeline/queue.md`. Spawn the `skill-designer` subagent (defined in `.claude/agents/skill-designer.md`) with a self-contained prompt that includes:
 
-2. **Novelty check**: Search GitHub, PromptBase, and public prompt libraries for similar skills. If 3+ close matches exist, either differentiate clearly or select a different signal.
+- The full signal text (industry, role, workflow step, proposed direction, novelty rationale)
+- The output directory: `skills/{industry}/{skill-name}/`
+- The skill format rules from `.claude/rules/code-style.md`
+- The test scenario format from `.claude/rules/testing.md`
+- The quality criteria from `CLAUDE.md` (all 5 criteria, verbatim)
+- Instruction to mark the signal `status: DESIGNING` in `pipeline/queue.md`
 
-3. **Design the skill**:
-   - Identify the exact trigger moment (when does a practitioner invoke this?)
-   - Define required inputs (what context must they provide?)
-   - Write step-by-step instructions that Claude will follow
-   - Define the output format precisely
-   - Define what the skill must NOT do (guardrails)
+## If re-spawning after a failed test
 
-4. **Write SKILL.md**: Follow the format in `.claude/rules/code-style.md`. Place in `skills/{industry}/{skill-name}/SKILL.md`.
+Pass the skill-designer the additional context:
+- Path to `skills/{industry}/{skill-name}/tests/result.md`
+- Instruction: do not modify test scenarios, only revise `SKILL.md` and `README.md`
+- Attempt number (max 3)
 
-5. **Write README.md**: Write the portable prompt template version. Must be self-contained. Place in `skills/{industry}/{skill-name}/README.md`.
+## What the subagent produces
 
-6. **Write test scenarios**: Write 2 realistic test scenarios in `skills/{industry}/{skill-name}/tests/scenario-1.md` and `scenario-2.md`. Follow the format in `.claude/rules/testing.md`.
+- `skills/{industry}/{skill-name}/SKILL.md`
+- `skills/{industry}/{skill-name}/README.md`
+- `skills/{industry}/{skill-name}/tests/scenario-1.md`
+- `skills/{industry}/{skill-name}/tests/scenario-2.md`
+- Queue updated with `status: DESIGNING`
 
-7. **Update queue**: Mark the signal `status: DESIGNING` in `pipeline/queue.md`.
+## Orchestrator action after subagent returns
 
-After completing all files, summarize: skill name, industry, target role, and the novelty rationale.
+If subagent returns `NOVELTY_FAIL`: mark signal `status: DEPRIORITIZED`, select next signal, re-invoke this skill. Otherwise advance to the test phase. Update `pipeline/state.json` with `current_phase: TEST`.
