@@ -1,11 +1,11 @@
 {
-  "current_phase": "FEEDBACK_CHECK",
+  "current_phase": "IDLE",
   "active_skill": null,
   "active_industry": null,
-  "last_cycle": "2026-06-03",
-  "last_research": "2026-06-03",
-  "last_publish": "2026-06-03T00:00:00Z",
-  "cycle_count": 4,
+  "last_cycle": "2026-06-04",
+  "last_research": "2026-06-04",
+  "last_publish": "2026-06-04T00:00:00Z",
+  "cycle_count": 14,
   "rate_limit_hit": false,
-  "notes": "Cycle 4 complete — deposition-contradiction-mapper published (commit 9f7a788, discussion https://github.com/Xeebs/grimoire/discussions/4)"
+  "notes": "Cycle 14 complete — queue exhausted, all signals published"
 }
