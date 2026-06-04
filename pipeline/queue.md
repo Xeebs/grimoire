@@ -10,7 +10,7 @@ Signals are listed in order of priority. The autonomous agent works top-to-botto
 
 ## Signal: Cross-Period Earnings Call Nuance Extraction
 - **Type**: RESEARCH
-- **Status**: UNWORKED
+- **Status**: PUBLISHED
 - **Strength**: High
 - **Source**: https://arxiv.org/pdf/2505.16090
 - **Industry**: Finance
@@ -22,7 +22,7 @@ Signals are listed in order of priority. The autonomous agent works top-to-botto
 
 ## Signal: CIM Financial Input Extraction for Deal Screening
 - **Type**: RESEARCH
-- **Status**: UNWORKED
+- **Status**: PUBLISHED
 - **Strength**: High
 - **Source**: https://www.fe.training/free-resources/ai/confidential-information-memorandum-review-use-case-using-ai/
 - **Industry**: Finance
@@ -34,7 +34,7 @@ Signals are listed in order of priority. The autonomous agent works top-to-botto
 
 ## Signal: Deposition Testimony Contradiction Mapper
 - **Type**: RESEARCH
-- **Status**: UNWORKED
+- **Status**: PUBLISHED
 - **Strength**: High
 - **Source**: https://brasstranscripts.com/blog/legal-deposition-contradiction-ai-prompt
 - **Industry**: Legal

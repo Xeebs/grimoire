@@ -4,8 +4,8 @@
   "active_industry": null,
   "last_cycle": "2026-06-03",
   "last_research": "2026-06-03",
-  "last_publish": "2026-06-03",
-  "cycle_count": 1,
+  "last_publish": "2026-06-03T00:00:00Z",
+  "cycle_count": 4,
   "rate_limit_hit": false,
-  "notes": "Cycle 1 complete — loan-covenant-compliance-spreader published successfully."
+  "notes": "Cycle 4 complete — deposition-contradiction-mapper published (commit 9f7a788, discussion https://github.com/Xeebs/grimoire/discussions/4)"
 }
